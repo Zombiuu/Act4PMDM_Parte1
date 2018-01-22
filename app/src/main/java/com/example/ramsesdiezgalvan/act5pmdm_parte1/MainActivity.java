@@ -1,5 +1,6 @@
 package com.example.ramsesdiezgalvan.act5pmdm_parte1;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +17,27 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     JSONObject jsonobject;
     JSONArray jsonarray;
     ProgressDialog mProgressDialog;
     ArrayList<String> worldlist;
     ArrayList<WorldPopulation> world;
 
-    @Override
+    // Locate the textviews in activity_main.xml
+    TextView txtrank;
+    TextView txtcountry;
+    TextView txtpopulation;
+
+    Spinner mySpinner;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        txtrank = findViewById(R.id.rank);
+        txtcountry = findViewById(R.id.country);
+        txtpopulation = findViewById(R.id.population);
+        mySpinner = findViewById(R.id.my_spinner);
         // Download JSON file AsyncTask
         new DownloadJSON().execute();
 
@@ -73,8 +83,8 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(Void args) {
-            // Locate the spinner in activity_main.xml
-            Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+
+
 
             // Spinner adapter
             mySpinner
@@ -86,14 +96,11 @@ public class MainActivity extends AppCompatActivity{
             mySpinner
                     .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onItemSelected(AdapterView<?> arg0,
                                                    View arg1, int position, long arg3) {
                             // TODO Auto-generated method stub
-                            // Locate the textviews in activity_main.xml
-                            TextView txtrank = (TextView) findViewById(R.id.rank);
-                            TextView txtcountry = (TextView) findViewById(R.id.country);
-                            TextView txtpopulation = (TextView) findViewById(R.id.population);
 
                             // Set the text followed by the position
                             txtrank.setText("Rank : "
